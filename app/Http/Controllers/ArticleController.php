@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Article;
+use Cache;
 
 class ArticleController extends Controller
 {
@@ -11,9 +13,24 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($quantity = 10)
     {
-        return view('blog.index');
+        if (Cache::has('quantityArticles')) {
+            $quantity = Cache::get('quantityArticles');
+        }
+        $articles = Article::orderBy('created_at', 'desc')->paginate($quantity);
+        return view('blog.index', compact('articles'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function setQuantity(Request $request)
+    {
+        Cache::put('quantityArticles', $request->quantity, time()+3600);
+        return redirect()->route('articlesQuantity', [ 'id' => $request->quantity ]);
     }
 
     /**
@@ -45,7 +62,8 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        return view('blog.article');
+        $article = Article::find($id);
+        return view('blog.article', compact('article'));
     }
 
     /**

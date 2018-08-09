@@ -8,4 +8,8 @@ class Tag extends Model
 {
     protected $table = 'tag';
     public $timestamps = false;
+
+    public function articles() {
+        return $this->belongsToMany('App\Article', 'article_tag', 'tag_id', 'article_id');
+    }
 }
