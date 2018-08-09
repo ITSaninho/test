@@ -12,14 +12,14 @@
 */
 
 
-Route::get('/',['uses' => 'IndexController@index']);
-Route::get('/article/{id}',['uses' => 'IndexController@index']);
+Route::get('/',['uses' => 'ArticleController@index']);
+Route::get('/article/{id}',['uses' => 'ArticleController@show']);
 Route::post('/article/{id}/comment',['uses' => 'CommentController@store']);
 
 //admin panel
 Route::group(['prefix'=>'admin'],   function() {
 
-Route::get('/articles',['uses' => 'Admin\ArticleController@index','as' => 'adminArticleIndex']);
+Route::get('/',['uses' => 'Admin\ArticleController@index','as' => 'adminArticleIndex']);
 Route::get('/article/create',['uses' => 'Admin\ArticleController@create','as' => 'adminArticleCreate']);
 Route::post('/article/create',['uses' => 'Admin\ArticleController@store','as' => 'adminArticleStore']);
 Route::get('/article/{id}',['uses' => 'Admin\ArticleController@show','as' => 'adminArticleShow'])->where('id','[0-9]+');

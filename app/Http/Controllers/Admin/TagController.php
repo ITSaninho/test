@@ -14,7 +14,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.tag_index');
     }
 
     /**
@@ -24,7 +24,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tag_create');
     }
 
     /**
@@ -57,7 +57,7 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.tag_edit');
     }
 
     /**
