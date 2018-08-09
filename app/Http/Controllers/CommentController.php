@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Comment;
 
 class CommentController extends Controller
@@ -35,7 +36,13 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $comment = new Comment();
+        $comment->user_id = Auth::user()->id;
+        $comment->article_id = $request->article_id;
+        $comment->message = $request->message;
+        if ($comment->save()) {
+            return redirect()->back()->with('status', 'Comment send successful!');
+        }
     }
 
     /**

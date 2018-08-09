@@ -5,6 +5,12 @@
         <!-- Post Content Column -->
         <div class="col-lg-12">
 
+          @if (session('status'))
+              <div class="alert alert-success mt-3">
+                  {{ session('status') }}
+              </div>
+          @endif
+
           <!-- Title -->
           <h1 class="mt-4">{{$article->title}}</h1>
 
@@ -42,9 +48,11 @@
           <div class="card my-4">
             <h5 class="card-header">Leave a Comment:</h5>
             <div class="card-body">
-              <form>
+              <form action="{{ route('commentSend') }}" method="post">
+                {{ csrf_field() }}
                 <div class="form-group">
-                  <textarea class="form-control" rows="3"></textarea>
+                  <input type="hidden" name="article_id" value="{{ $article->id }}">
+                  <textarea class="form-control" name="message" rows="3"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>

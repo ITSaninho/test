@@ -29,18 +29,36 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+            @if(Auth::user())
+            <li class="nav-item">
+              <a class="nav-link" href="#">You, {{Auth::user()->email}}</a>
+            </li>
+            @endif
             <li class="nav-item active">
               <a class="nav-link" href="/">Home</a>
             </li>
+            @guest
             <li class="nav-item">
-              <a class="nav-link" href="/login">Login</a>
+              <a class="nav-link" href="{{ route('login') }}">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/register">Register</a>
+              <a class="nav-link" href="{{ route('register') }}">Register</a>
             </li>
+            @else
             <li class="nav-item">
               <a class="nav-link" href="/admin">Admin Panel</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('logout') }}"
+                  onclick="event.preventDefault();
+                           document.getElementById('logout-form').submit();">
+                  Logout
+              </a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  {{ csrf_field() }}
+              </form>
+          </li>
+            @endguest
           </ul>
         </div>
       </div>
