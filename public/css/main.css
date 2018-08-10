@@ -1,0 +1,13 @@
+.selectors {
+	margin-bottom: 10px;
+}
+
+.selectors > i {
+	float: left;
+	padding: 5px;
+	cursor: pointer;
+}
+
+.selectors > i:hover {
+	background-color: #ebebe0;
+}

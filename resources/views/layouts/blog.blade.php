@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Blog Home - Start Bootstrap Template</title>
-
     <!-- Bootstrap core CSS -->
     <link href="/public/themes/startbootstrap-blog/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="/public/themes/startbootstrap-blog/css/blog-home.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/css/main.css">
   </head>
-
   <body>
 
     <!-- Navigation -->
@@ -79,6 +74,8 @@
     <!-- Bootstrap core JavaScript -->
     <script src="/public/themes/startbootstrap-blog/vendor/jquery/jquery.min.js"></script>
     <script src="/public/themes/startbootstrap-blog/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom styles for this template -->
+    <script type="text/javascript" src="/public/js/articles.js"></script>
 
   </body>
 
