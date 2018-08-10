@@ -67,6 +67,7 @@
                     <thead>
                         <th>ID</th>
                         <th>Title</th>
+                        <th>Category</th>
                         <th>Author</th>
                         <th>Date</th>
                         <th>Action</th>
@@ -75,7 +76,8 @@
                         @foreach($articles as $article)
                         <tr>
                             <td>{{$article->id}}</td>
-                            <td>{{mb_strimwidth($article->title, 0, 70, "...")}}</td>
+                            <td>{{mb_strimwidth($article->title, 0, 60, "...")}}</td>
+                            <td>{{$article->category->title}}</td>
                             <td>{{$article->user->email}}</td>
                             <td>{{$article->created_at}}</td>
                             <td>
@@ -87,7 +89,8 @@
                         @endforeach
                     </tbody>
                 </table>
-
+                <!-- Pagination -->
+                {{ $articles->links('vendor.pagination.bootstrap-4') }}
             </div>
         </div>
         <!-- /.col-lg-8 -->

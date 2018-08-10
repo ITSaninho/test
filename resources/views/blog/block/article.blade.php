@@ -34,6 +34,14 @@
             @endif
           @endforeach
 
+          <p>Share:</p>
+          <?php
+            echo "<a id='share' href='http://www.facebook.com/sharer.php?u='.$_SERVER[REQUEST_URI].''>
+               <i class='fa fa-facebook'></i>
+            </a>";
+          ?>
+          <hr>
+
           <p class="font-weight-bold">Other articles like this articles tags:</p>
           @foreach($article->tags as $tag)
             @foreach($tag->articles as $index => $article)

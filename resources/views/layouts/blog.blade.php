@@ -77,6 +77,17 @@
     <!-- Custom styles for this template -->
     <script type="text/javascript" src="/public/js/articles.js"></script>
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+    <script src="http://swip.codylindley.com/jquery.popupWindow.js"></script>
+     
+    <script type="text/javascript">
+        $('#share').popupWindow({ 
+            width:550, 
+            height:400,
+            centerBrowser:1
+        });
+    </script>
+
   </body>
 
 </html>

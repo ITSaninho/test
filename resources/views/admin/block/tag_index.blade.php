@@ -65,6 +65,8 @@
                         @endforeach
                     </tbody>
                 </table>
+                <!-- Pagination -->
+                {{ $tags->links('vendor.pagination.bootstrap-4') }}
             </div>
         </div>
         <!-- /.col-lg-8 -->
