@@ -35,11 +35,9 @@
           @endforeach
 
           <p>Share:</p>
-          <?php
-            echo "<a id='share' href='http://www.facebook.com/sharer.php?u='.$_SERVER[REQUEST_URI].''>
-               <i class='fa fa-facebook'></i>
-            </a>";
-          ?>
+          <script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+          <script src="//yastatic.net/share2/share.js"></script>
+          <div class="ya-share2" data-services="vkontakte,facebook,twitter,telegram"></div>
           <hr>
 
           <p class="font-weight-bold">Other articles like this articles tags:</p>
@@ -53,6 +51,7 @@
           @endforeach
 
           <!-- Comments Form -->
+          @if(Auth::user())
           <div class="card my-4">
             <h5 class="card-header">Leave a Comment:</h5>
             <div class="card-body">
@@ -66,6 +65,7 @@
               </form>
             </div>
           </div>
+          @endif
 
           @foreach($article->comments as $comment)
           <!-- Single Comment -->
