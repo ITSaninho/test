@@ -33,7 +33,7 @@
           <div class="card mb-4 css-block col-12">
             <div class="card-body">
               <h2 class="card-title">{{$article->title}}</h2>
-              <p class="card-text">{{mb_strimwidth($article->text, 0, 500, "...")}}</p>
+              <p class="card-text">{!! mb_strimwidth($article->text, 0, 500, "...") !!}</p>
               <a href="{{ route('articleShow', ['id' => $article->id]) }}" class="btn btn-primary">Read More &rarr;</a>
             </div>
             <div class="card-footer text-muted">

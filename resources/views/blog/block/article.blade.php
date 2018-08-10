@@ -23,7 +23,7 @@
           <hr>
 
           <!-- Post Content -->
-          <p class="lead">{{$article->text}}</p>
+          <div class="lead">{!! $article->text !!}</div>
           <hr>
 
           <p class="font-weight-bold">Other articles like this category:</p>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Cagegory;
+use App\Category;
 
 class CategoryController extends Controller
 {
@@ -13,9 +13,10 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($quantity = 10)
     {
-        return view('admin.category_index');
+        $categories = Category::orderBy('id', 'desc')->paginate($quantity);
+        return view('admin.category_index', compact('categories'));
     }
 
     /**
@@ -36,7 +37,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category();
+        $category->title = $request->title;
+        if ($category->save()) {
+            return redirect()->back()->with('status', 'Category add successful!');
+        }
     }
 
     /**
@@ -58,7 +63,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.category_edit');
+        $category = Category::find($id);
+        return view('admin.category_edit', compact('category'));
     }
 
     /**
@@ -68,9 +74,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $category = Category::find($request->id);
+        $category->title = $request->title;
+        if ($category->save()) {
+            return redirect()->route('adminCategoryIndex')->with('status', 'Category id:'.$request->id.' update successful!');
+        }
     }
 
     /**
@@ -81,6 +91,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        if ($category->delete()) {
+            return redirect()->back()->with('status', 'Category id:'.$id.' deleted successful!');
+        }
     }
 }

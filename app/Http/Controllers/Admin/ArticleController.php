@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Article;
+use App\Category;
+use App\Tag;
 
 class ArticleController extends Controller
 {
@@ -13,9 +16,12 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($quantity = 10)
     {
-        return view('admin.article_index');
+        $articles = Article::orderBy('created_at', 'desc')->paginate($quantity);
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('admin.article_index', compact('articles', 'categories', 'tags'));
     }
 
     /**
@@ -36,7 +42,14 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $article = new Article();
+        $article->title = $request->title;
+        $article->category_id = $request->category_id;
+        $article->user_id = Auth::user()->id;
+        $article->text = $request->text;
+        if ($article->save()) {
+            return redirect()->back()->with('status', 'Article add successful!');
+        }
     }
 
     /**
@@ -47,7 +60,8 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        return view('admin.article_show');
+        $article = Article::find($id);
+        return view('admin.article_show', compact('article'));
     }
 
     /**
@@ -58,7 +72,10 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.article_edit');
+        $article = Article::find($id);
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('admin.article_edit', compact('article', 'categories', 'tags'));
     }
 
     /**
@@ -68,9 +85,15 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $article = Article::find($request->id);
+        $article->title = $request->title;
+        $article->category_id = $request->category_id;
+        $article->text = $request->text;
+        if ($article->save()) {
+            return redirect()->route('adminArticleIndex')->with('status', 'Article id:'.$request->id.' update successful!');
+        }
     }
 
     /**
@@ -81,6 +104,9 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article = Article::find($id);
+        if ($article->delete()) {
+            return redirect()->back()->with('status', 'Article id:'.$id.' deleted successful!');
+        }
     }
 }

@@ -13,9 +13,10 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($quantity = 10)
     {
-        return view('admin.tag_index');
+        $tags = Tag::orderBy('id', 'desc')->paginate($quantity);
+        return view('admin.tag_index', compact('tags'));
     }
 
     /**
@@ -36,7 +37,11 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tag = new Tag();
+        $tag->title = $request->title;
+        if ($tag->save()) {
+            return redirect()->back()->with('status', 'Tag add successful!');
+        }
     }
 
     /**
@@ -58,7 +63,8 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.tag_edit');
+        $tag = Tag::find($id);
+        return view('admin.tag_edit', compact('tag'));
     }
 
     /**
@@ -68,9 +74,13 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $tag = Tag::find($request->id);
+        $tag->title = $request->title;
+        if ($tag->save()) {
+            return redirect()->route('adminTagIndex')->with('status', 'Tag id:'.$request->id.' update successful!');
+        }
     }
 
     /**
@@ -81,6 +91,9 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tag = Tag::find($id);
+        if ($tag->delete()) {
+            return redirect()->back()->with('status', 'Tag id:'.$id.' deleted successful!');
+        }
     }
 }
